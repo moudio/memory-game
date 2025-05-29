@@ -1,14 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentScore, setCurrentScore] = useState(0);
+  const [highestScore, setHighestScore] = useState(0);
+  const [cards, setCards] = useState([]);
+
+  
+  useEffect(() => {
+    setCards(generateCards());
+  }, []);
+
+
 
   return (
     <>
-      
+
+  
+      <h1>Memory Game</h1>
     </>
   )
 }

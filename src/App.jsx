@@ -6,6 +6,7 @@ function App() {
   const [currentScore, setCurrentScore] = useState(0);
   const [highestScore, setHighestScore] = useState(0);
   const [cards, setCards] = useState([]);
+  const [selectedCardIds, setSelectedCardIds] = useState([]);
 
   useEffect(() => {
     generateCards();
@@ -15,22 +16,39 @@ function App() {
     try {
       const response = await axios.get('https://api.pexels.com/v1/curated', {
         params: {
-          per_page: 10,
+          per_page: 16,
         },
         headers: {
           'Authorization': import.meta.env.VITE_PEXELS_API_KEY
         }
       });
       
-      // Create pairs of cards with the same image
-      const cardPairs = response.data.photos.flatMap(photo => [
+      const cardObjects = response.data.photos.flatMap(photo => [
         { id: `${photo.id}-1`, imageUrl: photo.src.large },
       ]);
       
-      setCards(cardPairs);
+      setCards(cardObjects);
     } catch (error) {
       console.error('Error fetching images:', error);
     }
+  }
+
+
+  const handleCardClick = (card) => {
+    if (selectedCardIds.includes(card.id)) {
+      setSelectedCardIds([]);
+      setCurrentScore(0);
+      setCards(shuffleCards());
+      return;
+    } else {
+      setSelectedCardIds([...selectedCardIds, card.id]);
+      setCurrentScore(currentScore + 1);
+      setCards(shuffleCards());
+    }
+
+    setHighestScore(Math.max(currentScore, highestScore));
+
+
   }
 
   const shuffleCards = () => {
@@ -45,19 +63,22 @@ function App() {
   return (
     <>
       <h1>Memory Game</h1>
-  
+      <p>Click on a card to flip it. If you flip the same card twice, you lose.</p>
+      
+      <div className="score-container">
+        <span className="score">Current Score: {currentScore}</span>
+        <span className="high-score">Highest Score: {highestScore}</span>
+      </div>
+
       <div className="game-container">
         <div className="game-board">
           {cards.map((card) => (
-            <div key={card.id} className="card">
+            <div key={card.id} className="card" onClick={() => handleCardClick(card)}>
               <img src={card.imageUrl} alt="Memory card" />
             </div>
           ))}
         </div>
       </div>
-      
-      <p>Current Score: {currentScore}</p>
-      <p>Highest Score: {highestScore}</p>
     </>
   )
 }

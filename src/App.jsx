@@ -16,7 +16,7 @@ function App() {
     try {
       const response = await axios.get('https://api.pexels.com/v1/curated', {
         params: {
-          per_page: 16,
+          per_page: 10,
         },
         headers: {
           'Authorization': import.meta.env.VITE_PEXELS_API_KEY
@@ -64,7 +64,7 @@ function App() {
   return (
     <>
       <h1>Memory Game</h1>
-      <p>Click on a card to flip it. If you flip the same card twice, you lose.</p>
+      <p>Click on a card to select it. If you click the same card twice, you lose.</p>
       
       <div className="score-container">
         <span className="score">Current Score: {currentScore}</span>

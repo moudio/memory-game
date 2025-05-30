@@ -1,6 +1,6 @@
 # Memory Card Game
 
-A fun and engaging memory card game built with React and Vite. Test your memory by matching pairs of cards while enjoying beautiful images from Pexels!
+A fun and engaging memory card game built with React and Vite. Test your memory by clicking cards and trying to achieve the highest score!
 
 ## Features
 
@@ -49,10 +49,11 @@ yarn dev
 
 ## How to Play
 
-1. Click on any card to flip it
-2. Try to find its matching pair
-3. If you click the same card twice, you lose!
-4. Try to achieve the highest score possible
+1. Click on any card to select it
+2. Each click increases your score
+3. If you click the same card twice, you lose and the game resets
+4. Try to achieve the highest score possible without clicking the same card twice
+5. The cards shuffle after each click to make it more challenging
 
 ## Built With
 

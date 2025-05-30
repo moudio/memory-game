@@ -23,9 +23,10 @@ function App() {
         }
       });
       
-      const cardObjects = response.data.photos.flatMap(photo => [
-        { id: `${photo.id}-1`, imageUrl: photo.src.large },
-      ]);
+      const cardObjects = response.data.photos.map(photo => ({
+        id: `${photo.id}-1`,
+        imageUrl: photo.src.large
+      }));
       
       setCards(cardObjects);
     } catch (error) {

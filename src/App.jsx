@@ -16,7 +16,7 @@ function App() {
     try {
       const response = await axios.get('https://api.pexels.com/v1/curated', {
         params: {
-          per_page: 10,
+          per_page: 16,
         },
         headers: {
           'Authorization': import.meta.env.VITE_PEXELS_API_KEY
@@ -45,9 +45,10 @@ function App() {
       setSelectedCardIds([...selectedCardIds, card.id]);
       setCurrentScore(currentScore + 1);
       setCards(shuffleCards());
+      setHighestScore(Math.max(currentScore + 1, highestScore));
+
     }
 
-    setHighestScore(Math.max(currentScore, highestScore));
 
 
   }
